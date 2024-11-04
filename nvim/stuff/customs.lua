@@ -69,7 +69,7 @@ later(function()
         on_attach = on_attach,
         hostInfo = "neovim",
         -- capabilities = capabilities,
-        filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+        filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
         cmd = { "typescript-language-server", "--stdio" }
     })
 end)
@@ -118,8 +118,5 @@ function()
     vim.keymap.set("n", "<leader>k", function() harpoon:list():select(3) end)
     vim.keymap.set("n", "<leader>l", function() harpoon:list():select(4) end)
     vim.keymap.set("n", "<leader>;", function() harpoon:list():select(5) end)
-
-    vim.keymap.set("n", "<M-k>", function() harpoon:list():prev() end)
-    vim.keymap.set("n", "<M-j>", function() harpoon:list():next() end)
 end
 )

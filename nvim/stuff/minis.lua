@@ -9,9 +9,9 @@ end)
 -- Basics 
 later(function()
     require ("mini.basics").setup({
-        options = { basic = true, extra_ui = true, win_borders = "single", },
-        mappings = { basics = true, option_toggle_prefix = [[\]], windows = true, move_with_alt = false, },
-        autocommands = { basic = true},
+        options = { basic = true, extra_ui = false, win_borders = "single", },
+        mappings = { basics = false, option_toggle_prefix = [[\]], windows = true, move_with_alt = false, },
+        autocommands = { basic = false},
         silet = true
     })
 end
