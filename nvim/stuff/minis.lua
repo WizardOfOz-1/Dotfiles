@@ -78,3 +78,7 @@ later(function() require("mini.move").setup(
             line_up = '',
         },
 }) end)
+
+later(function() 
+    require("mini.git").setup()
+end)

@@ -65,6 +65,11 @@ later(function()
         -- capabilities = capabilities,
     })
 
+    lspconfig.jedi_language_server.setup({
+        on_attach = on_attach,         -- Assuming you have this function defined
+        -- capabilities = capabilities,    -- Assuming you have capabilities configured (optional)
+    })
+
     lspconfig.ts_ls.setup({
         on_attach = on_attach,
         hostInfo = "neovim",
