@@ -19,18 +19,14 @@ later(function()
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
     vim.lsp.handlers.hover, {
         border = _border
-    }
-    )
+    })
     vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
     vim.lsp.handlers.signature_help, {
         border = _border
-    }
-    )
-
+    })
     vim.diagnostic.config {
         float = { border = "rounded"}
     }
-
     local on_attach = function(client)
         vim.opt.omnifunc = 'v:lua.MiniCompletion.completefunc_lsp'
         vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, {})
@@ -41,13 +37,7 @@ later(function()
         vim.keymap.set('n', '<leader>zz', vim.lsp.buf.format, {})
         vim.keymap.set('n', '[d', vim.diagnostic.goto_next, {})
         vim.keymap.set('n', ']d', vim.diagnostic.goto_prev, {})
-        vim.keymap.set('n', '<leader>fd', function()
-            vim.diagnostic.setqflist()
-        end, { noremap = true, silent = true })
-        vim.keymap.set('n', '<M-l>', '<cmd>cnext<CR>', { noremap = true, silent = true })
-        vim.keymap.set('n', '<M-h>', '<cmd>cprev<CR>', { noremap = true, silent = true })
     end
-
 
     local lspconfig = require("lspconfig")
     lspconfig.gopls.setup({
@@ -79,12 +69,9 @@ later(function()
     })
 end)
 
-later(
-function() 
-    require("mini.completion").setup(
-    {
+later(function() 
+    require("mini.completion").setup({
         delay = { completion = 100, info = 100, signature = 50 },
-
         window = {
             info = { height = 25, width = 80, border = 'single' },
             signature = { height = 25, width = 80, border = 'single' },
@@ -99,29 +86,49 @@ function()
             force_fallback = '<A-Space>', -- Force fallback completion
         },
         set_vim_settings = false,
-    }
-    )
-end
-)
-
-later(
-function()
-    add(
-    {
-        source = "ThePrimeagen/harpoon",
-        checkout = 'harpoon2',
-        depends = {'nvim-lua/plenary.nvim'},
+        silent = true
     })
-    local harpoon = require("harpoon")
-    harpoon:setup()
+end)
 
-    vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
-    vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+later(function()
+    add({ source = "leath-dub/snipe.nvim" })
+    local snipe = require("snipe")
+    snipe.setup({
+        ui = {
+            max_height = -1, -- Dynamic height
+            position = "topright", -- Adjust to your preference
+            open_win_override = {
+                title = "69 lol",
+                border = "single", -- Styled border
+            },
+            preselect_current = true,
+            text_align = "left",
+        },
+        hints = {
 
-    vim.keymap.set("n", "<leader>h", function() harpoon:list():select(1) end)
-    vim.keymap.set("n", "<leader>j", function() harpoon:list():select(2) end)
-    vim.keymap.set("n", "<leader>k", function() harpoon:list():select(3) end)
-    vim.keymap.set("n", "<leader>l", function() harpoon:list():select(4) end)
-    vim.keymap.set("n", "<leader>;", function() harpoon:list():select(5) end)
-end
-)
+            dictionary = "qsadflewcmpghio",
+        },
+        navigate = {
+            next_page = "J",
+            prev_page = "K",
+            under_cursor = "<cr>",
+            cancel_snipe = "<esc>",
+            close_buffer = "D",
+            open_vsplit = "V",
+            open_split = "H",
+            change_tag = "C",
+        },
+        sort = "default", -- Sorting order
+    })
+    snipe.ui_select_menu = require("snipe.menu"):new { position = "center" }
+    snipe.ui_select_menu:add_new_buffer_callback(function (m)
+        vim.keymap.set("n", "<esc>", function ()
+            m:close()
+        end, { nowait = true, buffer = m.buf })
+    end)
+    vim.ui.select = snipe.ui_select;
+    vim.keymap.set("n", "<C-e>", snipe.open_buffer_menu, { desc = "Open Snipe Buffer Menu" })
+end)
+
+
+

@@ -6,17 +6,15 @@ now(function()
     vim.cmd('colorscheme dino')
 end)
 
--- Basics 
-later(function()
-    require ("mini.basics").setup({
-        options = { basic = true, extra_ui = false, win_borders = "single", },
-        mappings = { basics = false, option_toggle_prefix = [[\]], windows = true, move_with_alt = false, },
-        autocommands = { basic = false},
-        silet = true
+now(function()
+    require("mini.basics").setup({
+        extra_ui = true,
+        mappings = {
+            windows = true,
+        },
+        silent=true,
     })
-end
-)
-
+end)
 -- Better around, in actions
 later(function() require ("mini.ai").setup({ silent = true }) end)
 
@@ -31,8 +29,11 @@ later(function()
             animation = require('mini.indentscope').gen_animation.none(),
         },
         mappings = {goto_top = 'gt', goto_bottom = 'gb',},
-        options = {indent_at_cursor = true,},
-        symbol = '|',
+        options = {
+            indent_at_cursor =false,
+            try_as_border = true,
+        },
+        symbol = '!',
     })
 end)
 
@@ -70,7 +71,7 @@ later(function() require("mini.move").setup(
             down = '<M-j>',
             up = '<M-k>',
             left = '<M-h>',
-            
+
             -- Move in Normal Mode (Not Using This)
             line_left = '',
             line_right = '',
@@ -82,3 +83,5 @@ later(function() require("mini.move").setup(
 later(function() 
     require("mini.git").setup()
 end)
+
+
