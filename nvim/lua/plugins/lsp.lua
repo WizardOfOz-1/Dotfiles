@@ -1,7 +1,7 @@
 return {
     'neovim/nvim-lspconfig',
-    -- event = 'LspAttach',  -- This ensures the plugin loads only when LSP attaches
-    ft = {"go","c","py"},
+    -- event = 'BufRead *.py,*.go,*.c ',  -- This ensures the plugin loads only when LSP attaches
+        ft = {"go","c"},
     config = function()
         local signs = {
             Error = "E",
@@ -31,10 +31,10 @@ return {
             capabilities = capabilities,
         })
 
-        lspconfig.jedi_language_server.setup({
-            on_attach = on_attach,         
-            capabilities = capabilities,    
-        })
+        -- lspconfig.jedi_language_server.setup({
+        --     on_attach = on_attach,         
+        --     capabilities = capabilities,    
+        -- })
 
         lspconfig.ccls.setup({
             on_attach = on_attach,         

@@ -113,7 +113,8 @@ bindsym $mod+g exec "gammastep -O 4500"
 bindsym $mod+y exec "~/.config/sway/screenshot.sh"
 bindsym $mod+Shift+g exec "killall gammastep"
 bindsym $mod+p exec '[ "$(swaymsg -t get_bar_config bar-0 | jq -r ".mode")" = "dock" ] && swaymsg bar mode invisible || swaymsg bar mode dock'
-client.focused #121212 #121212 #121212 #121212
+bindsym $mod+o output HDMI-A-1 pos 0 0 res 1920x1080; output eDP-1 pos 0 1440 res 1920x1080
+client.focused #242323 #242323 #242323 #242323
 set $volu $(wpctl get-volume @DEFAULT_AUDIO_SINK@)
 set $batt $(cat /sys/class/power_supply/BAT0/capacity)
 set $date $(date +"%a %F %H:%M")
@@ -127,8 +128,8 @@ bar {
 
     colors {
         statusline #018f7a
-        background #16161e
-        inactive_workspace #16161e #16161e #535353
+        background #121217
+        inactive_workspace #121217 #16161e #535353
     }
 }
 include /etc/sway/config.d/*
